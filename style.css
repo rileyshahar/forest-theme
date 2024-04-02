@@ -614,3 +614,7 @@ ol li ol li ol {
  font-weight: bold;
  color: white;
 }
+
+.scat {
+ font-variant: small-caps;
+}

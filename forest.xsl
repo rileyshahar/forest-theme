@@ -197,7 +197,9 @@
     <xsl:apply-templates select="addr" />
     <xsl:text>&#032;</xsl:text>
     <xsl:apply-templates select="source-path" />
-    <xsl:apply-templates select="meta[@name='ref-name']" />
+		<xsl:if test="../.. = /">
+     <xsl:apply-templates select="meta[@name='ref-name']" />
+		</xsl:if>
    </h1>
    <div class="metadata">
     <ul>
