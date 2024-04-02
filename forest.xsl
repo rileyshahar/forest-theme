@@ -189,14 +189,14 @@
  </xsl:template>
 
  <xsl:template match="meta[@name='ref-in']">
- 	<xsl:variable name="at" select="../meta[@name='ref-at']"></xsl:variable>
- 	<xsl:variable name="note" select="../meta[@name='ref-note']"></xsl:variable>
- 	<span class="reference">
- 		<a class="link local" href="{$note}.xml">
- 			<xsl:value-of select="." />
- 		</a>,
- 		<xsl:value-of select="$at" />
- 	</span>
+  <xsl:variable name="at" select="../meta[@name='ref-at']"></xsl:variable>
+  <xsl:variable name="note" select="../meta[@name='ref-note']"></xsl:variable>
+  <span class="reference">
+   <a class="link local" href="{$note}.xml">
+    <xsl:value-of select="." />
+   </a>,
+   <xsl:value-of select="$at" />
+  </span>
  </xsl:template>
 
  <xsl:template match="frontmatter">
@@ -225,7 +225,13 @@
      <xsl:apply-templates select="meta[@name='external']" />
      <xsl:apply-templates select="meta[@name='slides']" />
      <xsl:apply-templates select="meta[@name='video']" />
-		 <!-- <xsl:apply-templates select="meta[@name='ref-in']" /> -->
+	   <xsl:variable name="taxon" select="./taxon" />
+     <xsl:if test="$taxon = 'Reference'" >
+	   <xsl:variable name="addr" select="./addr" />
+      <li class="meta-item">
+       <a class="link local" href="bib/{$addr}.pdf" >PDF</a>
+      </li>
+     </xsl:if>
     </ul>
    </div>
   </header>
