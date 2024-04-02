@@ -159,4 +159,15 @@
   </li>
  </xsl:template>
 
+ <xsl:template match="meta[@name='ref-name']">
+  <xsl:variable name="at" select="../meta[@name='ref-at']"></xsl:variable>
+  <xsl:variable name="note" select="../meta[@name='ref-note']"></xsl:variable>
+  <span class="reference">
+   <a class="link local" href="{$note}.xml">
+    <xsl:value-of select="." />
+   </a>,
+   <xsl:value-of select="$at" />
+  </span>
+ </xsl:template>
+
 </xsl:stylesheet>

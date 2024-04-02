@@ -188,17 +188,6 @@
   <xsl:value-of select="." />
  </xsl:template>
 
- <xsl:template match="meta[@name='ref-in']">
-  <xsl:variable name="at" select="../meta[@name='ref-at']"></xsl:variable>
-  <xsl:variable name="note" select="../meta[@name='ref-note']"></xsl:variable>
-  <span class="reference">
-   <a class="link local" href="{$note}.xml">
-    <xsl:value-of select="." />
-   </a>,
-   <xsl:value-of select="$at" />
-  </span>
- </xsl:template>
-
  <xsl:template match="frontmatter">
   <header>
    <h1>
@@ -208,7 +197,7 @@
     <xsl:apply-templates select="addr" />
     <xsl:text>&#032;</xsl:text>
     <xsl:apply-templates select="source-path" />
-    <xsl:apply-templates select="meta[@name='ref-in']" />
+    <xsl:apply-templates select="meta[@name='ref-name']" />
    </h1>
    <div class="metadata">
     <ul>
@@ -285,6 +274,17 @@
   </a>
  </xsl:template>
 
+ <xsl:template match="meta[@name='dual-name']">
+  <xsl:variable name="note" select="../meta[@name='dual-note']"></xsl:variable>
+  <section class="block">
+   <xsl:text>The dual concept is </xsl:text>
+	 <a class="link local" href="{$note}.xml">
+	  <xsl:value-of select="." />
+   </a>
+   <xsl:text>.</xsl:text>
+  </section>
+ </xsl:template>
+
  <xsl:template match="backmatter/references" mode="title">
   <xsl:text>References</xsl:text>
  </xsl:template>
@@ -318,6 +318,7 @@
 
  <xsl:template match="/tree[@root!='true']/backmatter">
   <footer>
+	 <xsl:apply-templates select="../frontmatter/meta[@name='dual-name']" />
    <xsl:apply-templates select="references" />
    <xsl:apply-templates select="context" />
    <xsl:apply-templates select="backlinks" />
