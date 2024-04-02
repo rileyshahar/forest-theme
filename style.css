@@ -158,6 +158,19 @@ article>section>details>summary>header>h1>.taxon {
   padding-bottom: 5pt;
 }
 
+.reference:before {
+	content:"("
+}
+
+.reference:after {
+	content:")"
+}
+
+.reference {
+  font-weight: normal;
+  font-size: .8em;
+}
+
 section section[data-taxon="Reference"]>details>summary>header>h1>.taxon,
 section section[data-taxon="Person"]>details>summary>header>h1>.taxon {
   display: none;

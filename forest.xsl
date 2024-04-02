@@ -188,6 +188,17 @@
   <xsl:value-of select="." />
  </xsl:template>
 
+ <xsl:template match="meta[@name='ref-in']">
+ 	<xsl:variable name="at" select="../meta[@name='ref-at']"></xsl:variable>
+ 	<xsl:variable name="note" select="../meta[@name='ref-note']"></xsl:variable>
+ 	<span class="reference">
+ 		<a class="link local" href="{$note}.xml">
+ 			<xsl:value-of select="." />
+ 		</a>,
+ 		<xsl:value-of select="$at" />
+ 	</span>
+ </xsl:template>
+
  <xsl:template match="frontmatter">
   <header>
    <h1>
@@ -197,6 +208,7 @@
     <xsl:apply-templates select="addr" />
     <xsl:text>&#032;</xsl:text>
     <xsl:apply-templates select="source-path" />
+    <xsl:apply-templates select="meta[@name='ref-in']" />
    </h1>
    <div class="metadata">
     <ul>
@@ -213,6 +225,7 @@
      <xsl:apply-templates select="meta[@name='external']" />
      <xsl:apply-templates select="meta[@name='slides']" />
      <xsl:apply-templates select="meta[@name='video']" />
+		 <!-- <xsl:apply-templates select="meta[@name='ref-in']" /> -->
     </ul>
    </div>
   </header>
