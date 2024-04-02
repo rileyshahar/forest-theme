@@ -166,7 +166,7 @@
 
  <xsl:template match="mainmatter">
   <div class="tree-content">
-   <xsl:apply-templates />
+   <xsl:apply-templates select="*[not(name()='bm-inject')]" />
   </div>
  </xsl:template>
 
@@ -276,13 +276,11 @@
 
  <xsl:template match="meta[@name='dual-name']">
   <xsl:variable name="note" select="../meta[@name='dual-note']"></xsl:variable>
-  <section class="block">
    <xsl:text>The dual concept is </xsl:text>
 	 <a class="link local" href="{$note}.xml">
 	  <xsl:value-of select="." />
    </a>
    <xsl:text>.</xsl:text>
-  </section>
  </xsl:template>
 
  <xsl:template match="backmatter/references" mode="title">
@@ -305,7 +303,19 @@
   <xsl:text>Backlinks</xsl:text>
  </xsl:template>
 
- <xsl:template match="backmatter/references|backmatter/context|backmatter/contributions|backmatter/related|backmatter/backlinks">
+ <!-- separate treament for query parsing -->
+ <xsl:template match="mainmatter/bm-inject">
+	<xsl:for-each select="tree">
+    <section class="block link-list">
+     <h2>
+		<xsl:apply-templates select="frontmatter/title" mode="title" />
+     </h2>
+		 <xsl:apply-templates select="mainmatter/tree" />
+    </section>
+	 </xsl:for-each>
+ </xsl:template>
+
+ <xsl:template match="backmatter/references|backmatter/context|backmatter/contributions|backmatter/related|backmatter/backlinks|mainmatter/bm-inject/tree">
   <xsl:if test="tree">
    <section class="block link-list">
     <h2>
@@ -318,9 +328,9 @@
 
  <xsl:template match="/tree[@root!='true']/backmatter">
   <footer>
-	 <xsl:apply-templates select="../frontmatter/meta[@name='dual-name']" />
    <xsl:apply-templates select="references" />
    <xsl:apply-templates select="context" />
+	 <xsl:apply-templates select="../mainmatter/bm-inject" />
    <xsl:apply-templates select="backlinks" />
    <xsl:apply-templates select="related" />
    <xsl:apply-templates select="contributions" />
@@ -366,6 +376,7 @@
       </summary>
       <xsl:apply-templates select="mainmatter" />
       <xsl:apply-templates select="frontmatter/meta[@name='bibtex']" />
+      <xsl:apply-templates select="frontmatter/meta[@name='dual-name']" />
      </details>
     </xsl:when>
     <xsl:otherwise>
