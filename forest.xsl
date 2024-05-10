@@ -217,7 +217,7 @@
      <xsl:apply-templates select="meta[@name='slides']" />
      <xsl:apply-templates select="meta[@name='video']" />
 	   <xsl:variable name="taxon" select="./taxon" />
-     <xsl:if test="$taxon = 'Reference'" >
+     <xsl:if test="$taxon = 'Reference' or $taxon = 'Paper'" >
 	   <xsl:variable name="addr" select="./addr" />
       <li class="meta-item">
        <a class="link local" href="bib/{$addr}.pdf" >PDF</a>
