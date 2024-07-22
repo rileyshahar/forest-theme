@@ -21,7 +21,7 @@
         </script>
         <script type="module" src="forester.js"></script>
         <title>
-          <xsl:value-of select="/f:tree/f:frontmatter/f:title" />
+          <xsl:value-of select="/f:tree/f:frontmatter/f:title[@text]" />
         </title>
       </head>
       <body>
