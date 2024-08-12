@@ -163,7 +163,15 @@
   </xsl:template>
 
   <xsl:template match="f:addr[not(../f:route)]">
- </xsl:template>
+  </xsl:template>
+
+  <xsl:template match="f:resource">
+    <xsl:apply-templates select="f:resource-content"/>
+  </xsl:template>
+
+  <xsl:template match="f:resource-content">
+    <xsl:apply-templates/>
+  </xsl:template>
 
 
   <xsl:template match="f:source-path">
