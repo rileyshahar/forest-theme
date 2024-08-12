@@ -154,13 +154,17 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="f:addr">
+  <xsl:template match="f:addr[../f:route]">
     <a class="slug" href="{../f:route}">
       <xsl:text>[</xsl:text>
       <xsl:value-of select="." />
       <xsl:text>]</xsl:text>
     </a>
   </xsl:template>
+
+  <xsl:template match="f:addr[not(../f:route)]">
+ </xsl:template>
+
 
   <xsl:template match="f:source-path">
     <a class="edit-button" href="{concat('vscode://file', .)}">
