@@ -26,11 +26,23 @@
       <xsl:apply-templates select="@* | node()" />
     </xsl:element>
   </xsl:template>
-  
+
   <xsl:template match="mml:*">
     <xsl:element namespace="http://www.w3.org/1998/Math/MathML" name="{local-name()}">
       <xsl:apply-templates select="@* | node()" />
     </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="f:figure">
+    <figure>
+      <xsl:apply-templates />
+    </figure>
+  </xsl:template>
+
+  <xsl:template match="f:figcaption">
+    <figcaption>
+      <xsl:apply-templates />
+    </figcaption>
   </xsl:template>
 
   <xsl:template match="f:p">
@@ -87,11 +99,8 @@
     </blockquote>
   </xsl:template>
 
-
-  <xsl:template match="f:embedded-tex">
-    <center>
-      <img src="resources/{@hash}.svg" />
-    </center>
+  <xsl:template match="f:img[@src]">
+    <img src="{@src}" />
   </xsl:template>
 
   <xsl:template match="f:error | f:info">
@@ -101,12 +110,10 @@
   </xsl:template>
 
   <xsl:template match="f:info">
-   <span class="info">
-    <xsl:apply-templates />
-   </span>
+    <span class="info">
+      <xsl:apply-templates />
+    </span>
   </xsl:template>
-
-
 
   <xsl:template match="f:tex[@display='block']">
     <xsl:text>\[</xsl:text>
